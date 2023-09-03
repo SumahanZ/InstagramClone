@@ -7,14 +7,16 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseFirestoreSwift
+import Firebase
 
 enum AuthError: LocalizedError {
-    case badRegistration, badLogin(username: String, password: String)
+    case badRegistration, badLogin(email: String, password: String)
 
     var errorDescription: String? {
         switch self {
-        case .badLogin(let username, let password):
-            return "Failed to login with the given user credentials of Username: \(username) and Password: \(password)"
+        case .badLogin(let email, let password):
+            return "Failed to login with the given user credentials of Username: \(email) and Password: \(password)!"
         case .badRegistration:
             return "Failed to register with the given inputs!"
         }
@@ -38,14 +40,22 @@ class AuthManager {
         userSession = Auth.auth().currentUser
     }
 
+    @MainActor
     func login(email: String, password: String) async throws {
-        
+        do {
+            let result = try await Auth.auth().signIn(withEmail: email, password: password)
+            userSession = result.user
+        } catch {
+            throw AuthError.badLogin(email: email, password: password)
+        }
     }
 
+    @MainActor
     func createUser(email: String, password: String, username: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
-            self.userSession = result.user
+            userSession = result.user
+            await uploadUserData(uid: result.user.uid, username: username, email: email)
         } catch {
             throw AuthError.badRegistration
         }
@@ -55,8 +65,26 @@ class AuthManager {
     func loadUserData() async throws {
 
     }
-
-    func signOut() {
-
+    
+    func signOut() throws {
+        do {
+            /*
+             when we are calling this signout function from firebase we are not yet updating the userSession which manages the front end of whether the user is login (shows MainTabView) or not (shows LoginView) unless we set userSession to nil
+             */
+            try Auth.auth().signOut()
+            userSession = nil
+        } catch let error {
+            print("Failed to sign out: \(error.localizedDescription)")
+        }
+    }
+    /*
+     We typically don't use throw when uploading data because that rearely ever goes wrong and we don't handle the error
+     */
+    private func uploadUserData(uid: String, username: String, email: String) async {
+        let user = User(id: uid, username: username, email: email)
+        /*
+         try to Encode the UserModel into Data that can be stored in the FirestoreFirebase we make it guard let because the encoding can fail
+         */
+        guard let encodedUserData = try? Firestore.Encoder().encode(user) else { return }
     }
 }

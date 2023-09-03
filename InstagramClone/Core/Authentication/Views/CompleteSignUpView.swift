@@ -14,7 +14,7 @@ struct CompleteSignUpView: View {
     var body: some View {
         VStack(spacing: 12) {
             Spacer()
-            Text("Welcome to Instagram, kevin_s_utomo")
+            Text("Welcome to Instagram, \(vm.username)")
                 .font(.title2)
                 .fontWeight(.bold)
                 .padding(.top)
@@ -57,5 +57,6 @@ struct CompleteSignUpView: View {
 struct CompleteSignUpView_Previews: PreviewProvider {
     static var previews: some View {
         CompleteSignUpView()
+            .environmentObject(RegistrationViewModel())
     }
 }

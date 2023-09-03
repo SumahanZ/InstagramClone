@@ -41,6 +41,7 @@
 		93FF93CB2AA20280006B0C75 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF93CA2AA20280006B0C75 /* AuthManager.swift */; };
 		93FF93CF2AA2E81C006B0C75 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF93CE2AA2E81C006B0C75 /* ContentViewModel.swift */; };
 		93FF93D22AA2EFBF006B0C75 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF93D12AA2EFBF006B0C75 /* RegistrationViewModel.swift */; };
+		93FF93D42AA30FB9006B0C75 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF93D32AA30FB9006B0C75 /* LoginViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		93FF93CA2AA20280006B0C75 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		93FF93CE2AA2E81C006B0C75 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		93FF93D12AA2EFBF006B0C75 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		93FF93D32AA30FB9006B0C75 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -325,6 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				93FF93D12AA2EFBF006B0C75 /* RegistrationViewModel.swift */,
+				93FF93D32AA30FB9006B0C75 /* LoginViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				93AE3CFD2AA0B2B500131FBE /* CreateUsernameView.swift in Sources */,
 				93AE3D032AA0BB0900131FBE /* CompleteSignUpView.swift in Sources */,
 				93FF93BA2AA19694006B0C75 /* UploadPostView.swift in Sources */,
+				93FF93D42AA30FB9006B0C75 /* LoginViewModel.swift in Sources */,
 				93AE3CFB2AA0B14300131FBE /* IGTextFieldModifier.swift in Sources */,
 				93AE3CEA2AA0423100131FBE /* UserStatView.swift in Sources */,
 				93AE3CED2AA054AE00131FBE /* FeedView.swift in Sources */,

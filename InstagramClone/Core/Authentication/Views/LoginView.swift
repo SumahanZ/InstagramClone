@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
+    @EnvironmentObject var vm: LoginViewModel
     
     var body: some View {
         NavigationStack {
@@ -20,17 +21,17 @@ struct LoginView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 220, height: 100)
-
+                
                 //text fields
                 VStack {
                     TextField("Enter your email", text: $email)
                         .textInputAutocapitalization(.none)
                         .modifier(IGTextFieldModifier())
-
+                    
                     SecureField("Enter your password", text: $password)
                         .modifier(IGTextFieldModifier())
                 }
-
+                
                 Button {
                     print("show forgot password")
                 } label: {
@@ -41,9 +42,9 @@ struct LoginView: View {
                         .padding(.trailing, 28)
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
-
+                
                 Button {
-                    print("Login")
+                    Task { try? await vm.signIn() }
                 } label: {
                     Text("Login")
                         .font(.subheadline)
@@ -54,36 +55,36 @@ struct LoginView: View {
                         .cornerRadius(8)
                 }
                 .padding(.vertical)
-
+                
                 HStack {
                     Rectangle()
                         .frame(width: (UIScreen.main.bounds.width / 2) - 40, height: 0.5)
-
+                    
                     Text("OR")
                         .font(.footnote)
-
+                    
                     Rectangle()
                         .frame(width: (UIScreen.main.bounds.width / 2) - 40, height: 0.5)
-
+                    
                 }
                 .foregroundColor(.gray)
-
+                
                 HStack {
                     Image("facebooklogo")
                         .resizable()
                         .frame(width: 20, height: 20)
-
+                    
                     Text("Continue with Facebook")
                         .font(.footnote)
                         .fontWeight(.semibold)
                         .foregroundColor(Color(.systemBlue))
                 }
                 .padding(.top, 8)
-
+                
                 Spacer()
-
+                
                 Divider()
-
+                
                 /*
                  We use navigationlink here and not the value is because there is no value associated, we are not clicking on a user object or post object
                  */
@@ -97,7 +98,7 @@ struct LoginView: View {
                     }
                 }
                 .padding(.vertical, 16)
-
+                
             }
         }
     }
