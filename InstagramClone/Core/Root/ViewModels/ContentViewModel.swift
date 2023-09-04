@@ -10,13 +10,14 @@ import FirebaseAuth
 import Combine
 
 class ContentViewModel: ObservableObject {
-    private let manager = AuthManager.shared
+    private let service = AuthService.shared
     private var cancellables = Set<AnyCancellable>()
     /*
      ContentViewModel knows nothing about the registration stuff that is happening, it is only listening to the changes of the userSession which indicates if a user is login (shows MainTabView) or not (shows LoginView) through the setupSubscribers function
      */
     @Published var userSession: FirebaseAuth.User?
-
+    @Published var currentUser: User?
+    
     init() {
         setupSubscribers()
     }
@@ -27,10 +28,11 @@ class ContentViewModel: ObservableObject {
         /*
          UserSession is getting its value in the background thread (async) therefore we need to set the viewmodel userSession with the value from the manager by receiving it first in the main thread
          */
-        manager.$userSession
-            //.receive(on: DispatchQueue.main)
-            .sink { [weak self] session in
+        service.$userSession
+            .combineLatest(service.$currentUser)
+            .sink { [weak self] session, user in
                 self?.userSession = session
+                self?.currentUser = user
             }
             .store(in: &cancellables)
     }

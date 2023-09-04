@@ -10,7 +10,7 @@ import Foundation
 class LoginViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
-    private let manager = AuthManager.shared
+    private let manager = AuthService.shared
 
     func signIn() async throws {
         try await manager.login(email: email, password: password)

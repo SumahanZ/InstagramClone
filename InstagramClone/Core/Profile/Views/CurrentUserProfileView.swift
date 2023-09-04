@@ -12,7 +12,6 @@ struct CurrentUserProfileView: View {
     private var posts: [Post] {
         return DeveloperPreview.MOCK_POSTS.filter({ $0.user?.username == user.username })
     }
-    @EnvironmentObject var vm: LoginViewModel
     
     var body: some View {
         NavigationStack {
