@@ -21,4 +21,13 @@ class UserService {
          */
         return snapshot.documents.compactMap({ try? $0.data(as: User.self) })
     }
+
+    static func fetchUser(uid: String) async throws -> User {
+        /*
+         Find a specific user
+         */
+        let snapshot = try await Firestore.firestore().collection("users").document(uid).getDocument()
+        let currentUser = try snapshot.data(as: User.self)
+        return currentUser
+    }
 }

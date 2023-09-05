@@ -10,12 +10,10 @@ import PhotosUI
 
 struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
-    let user: User
     @State private var imagePickerPresented = false
     @StateObject private var profileVM: EditProfileViewModel
-
+    
     init(user: User) {
-        self.user = user
         _profileVM = StateObject(wrappedValue: EditProfileViewModel(user: user))
     }
     
@@ -33,12 +31,7 @@ struct EditProfileView: View {
                                 .background(.gray)
                                 .clipShape(Circle())
                         } else {
-                            Image(systemName: "person")
-                                .resizable()
-                                .frame(width: 80, height: 80)
-                                .foregroundColor(.white)
-                                .background(.gray)
-                                .clipShape(Circle())
+                            CircularProfileImageView(user: profileVM.user, size: .large)
                         }
                         
                         Text("Edit profile picture")
@@ -49,12 +42,12 @@ struct EditProfileView: View {
                     }
                 }
                 .padding(.vertical, 8)
-
+                
                 VStack {
                     EditProfileRowView(title: "Name", placeholder: "Enter your name", text: $profileVM.fullName)
                     EditProfileRowView(title: "Bio", placeholder: "Enter your bio", text: $profileVM.bio)
                 }
-
+                
                 Spacer()
             }
             .photosPicker(isPresented: $imagePickerPresented, selection: $profileVM.selectedImage)
@@ -73,6 +66,7 @@ struct EditProfileView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         Task { try? await profileVM.updateUserData() }
+                        dismiss.callAsFunction()
                     } label: {
                         Text("Done")
                             .fontWeight(.bold)

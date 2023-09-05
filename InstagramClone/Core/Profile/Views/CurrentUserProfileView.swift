@@ -9,15 +9,12 @@ import SwiftUI
 
 struct CurrentUserProfileView: View {
     let user: User
-    private var posts: [Post] {
-        return DeveloperPreview.MOCK_POSTS.filter({ $0.user?.username == user.username })
-    }
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 ProfileHeaderView(user: user)
-                PostGridView(posts: posts)
+                PostGridView(user: user)
             }
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
@@ -38,6 +35,6 @@ struct CurrentUserProfileView: View {
 
 struct CurrentUserProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        CurrentUserProfileView(user: DeveloperPreview.MOCK_USERS[0])
+        CurrentUserProfileView(user: DeveloperPreview.MOCK_USERS[2])
     }
 }

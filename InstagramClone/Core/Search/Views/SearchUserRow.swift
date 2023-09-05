@@ -11,16 +11,12 @@ struct SearchUserRow: View {
     let user: User
     var body: some View {
         HStack {
-            Image(systemName: "person.circle")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 40, height: 40)
-                .clipShape(Circle())
+            CircularProfileImageView(user: user, size: .small)
             
             VStack(alignment: .leading) {
                 Text(user.username)
                     .fontWeight(.semibold)
-
+                
                 if let fullName = user.fullName {
                     Text(fullName)
                 }

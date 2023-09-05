@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import FirebaseAuth
+import Firebase
 import Combine
 
 class ContentViewModel: ObservableObject {
@@ -29,10 +29,14 @@ class ContentViewModel: ObservableObject {
          UserSession is getting its value in the background thread (async) therefore we need to set the viewmodel userSession with the value from the manager by receiving it first in the main thread
          */
         service.$userSession
-            .combineLatest(service.$currentUser)
-            .sink { [weak self] session, user in
+            .sink { [weak self] session in
                 self?.userSession = session
-                self?.currentUser = user
+            }
+            .store(in: &cancellables)
+
+        service.$currentUser
+            .sink { [weak self] currentUser in
+                self?.currentUser = currentUser
             }
             .store(in: &cancellables)
     }

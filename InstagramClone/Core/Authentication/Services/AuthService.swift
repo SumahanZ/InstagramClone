@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestoreSwift
+import FirebaseFirestore
 import Firebase
 
 enum AuthError: LocalizedError {
@@ -75,12 +76,12 @@ class AuthService {
         /*
          Get document snapshot from the fetch result (basically when we fetch data from firebase, it comes as a document snapshot)
          If u do snapshot.data() it gives you the dictionary string data of the fields in firebase
+         let snapshot = try await Firestore.firestore().collection("users").document(currentUid).getDocument()
          */
-        let snapshot = try await Firestore.firestore().collection("users").document(currentUid).getDocument()
         /*
          Decode the data we got from firebase into a model of our own which is "User"
          */
-        currentUser = try snapshot.data(as: User.self)
+        currentUser = try await UserService.fetchUser(uid: currentUid)
     }
     
     func signOut() throws {
@@ -108,6 +109,7 @@ class AuthService {
         /*
          try to Encode the UserModel into Data that can be stored in the FirestoreFirebase we make it guard let because the encoding can fail
          */
+        self.currentUser = user
         guard let encodedUserData = try? Firestore.Encoder().encode(user) else { return }
         try? await Firestore.firestore().collection("users").document(user.id).setData(encodedUserData)
         

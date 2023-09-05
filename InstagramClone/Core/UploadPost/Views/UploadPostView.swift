@@ -9,10 +9,9 @@ import SwiftUI
 import PhotosUI
 
 struct UploadPostView: View {
-    @State private var caption = ""
     @State private var imagePickerPresented = false
     @Binding var selectedTab: Int
-    @StateObject var vm = UploadPostViewModel()
+    @StateObject var uploadPostVM = UploadPostViewModel()
     
     var body: some View {
         VStack {
@@ -32,7 +31,10 @@ struct UploadPostView: View {
                 Spacer()
                 
                 Button {
-                    print("Upload")
+                    Task {
+                        try? await uploadPostVM.uploadPost()
+                        resetUploadPost()
+                    }
                 } label: {
                     Text("Upload")
                         .fontWeight(.semibold)
@@ -42,7 +44,7 @@ struct UploadPostView: View {
             .padding(.horizontal)
             //post image and caption
             HStack(spacing: 8) {
-                if let postImage = vm.postImage {
+                if let postImage = uploadPostVM.postImage {
                     postImage
                         .resizable()
                         .scaledToFill()
@@ -56,7 +58,7 @@ struct UploadPostView: View {
                  New addition to textfield so when the field runs out of room it won't span to the right with the new text and the old text being hidden
                  But now it goes to a new line
                  */
-                TextField("Enter your caption", text: $caption, axis: .vertical)
+                TextField("Enter your caption", text: $uploadPostVM.caption, axis: .vertical)
             }
             .padding()
             
@@ -65,7 +67,7 @@ struct UploadPostView: View {
         .onAppear {
             imagePickerPresented.toggle()
         }
-        .photosPicker(isPresented: $imagePickerPresented, selection: $vm.selectedImage)
+        .photosPicker(isPresented: $imagePickerPresented, selection: $uploadPostVM.selectedImage)
     }
 }
 
@@ -77,9 +79,9 @@ struct UploadPostView_Previews: PreviewProvider {
 
 extension UploadPostView {
     private func resetUploadPost() {
-        caption = ""
-        vm.postImage = nil
-        vm.selectedImage = nil
+        uploadPostVM.caption = ""
+        uploadPostVM.postImage = nil
+        uploadPostVM.selectedImage = nil
         selectedTab = 0
     }
 }
