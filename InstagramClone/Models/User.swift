@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 struct User: Identifiable, Codable, Hashable {
     let id: String
@@ -14,6 +15,13 @@ struct User: Identifiable, Codable, Hashable {
     let profileImageUrl: String?
     let fullName: String?
     let bio: String?
+    /*
+     Let's take at the currentuser id if there isn't one it returns false, but if the id propertu of the User class is the same as the uid we got from firebase using Auth.auth().currentUser?.id, then it will return true, otherwise returns false
+     */
+    var isCurrentUser: Bool {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return false }
+        return currentUid == id
+    }
     
     init(id: String, username: String, email: String, profileImageUrl: String? = nil, fullName: String? = nil, bio: String? = nil) {
         self.id = id

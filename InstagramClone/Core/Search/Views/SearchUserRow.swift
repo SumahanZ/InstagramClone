@@ -11,7 +11,7 @@ struct SearchUserRow: View {
     let user: User
     var body: some View {
         HStack {
-            Image(user.profileImageUrl ?? "")
+            Image(systemName: "person.circle")
                 .resizable()
                 .scaledToFill()
                 .frame(width: 40, height: 40)
