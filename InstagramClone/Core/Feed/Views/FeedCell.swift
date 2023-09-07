@@ -9,7 +9,9 @@ import SwiftUI
 import Kingfisher
 
 struct FeedCell: View {
+    @EnvironmentObject var feedVM: FeedViewModel
     let post: Post
+    let userID: String
     
     var body: some View {
         VStack {
@@ -37,9 +39,10 @@ struct FeedCell: View {
             //action button
             HStack(spacing: 16) {
                 Button {
-                    print("Like Post")
+                    Task { try? await feedVM.updateLikes(post: post) }
                 } label: {
-                    Image(systemName: "heart")
+                    Image(systemName: post.postLikers.contains(userID) ? "heart.fill" : "heart")
+                        .foregroundColor(post.postLikers.contains(userID) ? .red : .black)
                         .imageScale(.large)
                 }
 
@@ -65,13 +68,16 @@ struct FeedCell: View {
             .foregroundColor(.black)
 
             //likes label
-            Text("\(post.likes) likes")
-                .font(.footnote)
-                .fontWeight(.semibold)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 10)
-                .padding(.top, 1)
-
+            NavigationLink {
+                LikeView(post: post)
+            } label: {
+                Text("\(post.likes) likes")
+                    .font(.footnote)
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 10)
+                    .padding(.top, 1)
+            }
             //caption label
             //"+" will make the text line up together
             HStack {
@@ -99,6 +105,6 @@ struct FeedCell: View {
 
 struct FeedCell_Previews: PreviewProvider {
     static var previews: some View {
-        FeedCell(post: DeveloperPreview.MOCK_POSTS[1])
+        FeedCell(post: DeveloperPreview.MOCK_POSTS[1], userID: DeveloperPreview.MOCK_USERS[0].id)
     }
 }

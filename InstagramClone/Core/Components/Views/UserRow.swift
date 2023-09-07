@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchUserRow: View {
+struct UserRow: View {
     let user: User
     var body: some View {
         HStack {
@@ -29,11 +29,11 @@ struct SearchUserRow: View {
     }
 }
 
-struct SearchUserRow_Previews: PreviewProvider {
+struct UserRow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             if let user = DeveloperPreview.MOCK_USERS.first {
-                SearchUserRow(user: user)
+                UserRow(user: user)
             }
         }
         .previewLayout(.sizeThatFits)

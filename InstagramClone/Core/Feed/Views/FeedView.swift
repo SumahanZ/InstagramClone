@@ -14,7 +14,8 @@ struct FeedView: View {
             ScrollView {
                 LazyVStack(spacing: 32) {
                     ForEach(feedVM.posts) { post in
-                        FeedCell(post: post)
+                        FeedCell(post: post, userID: feedVM.currentUserID)
+                            .environmentObject(feedVM)
                     }
                 }
                 .padding(.top, 8)
@@ -28,7 +29,7 @@ struct FeedView: View {
                         .scaledToFill()
                         .frame(width: 100, height: 32)
                 }
-
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Image(systemName: "paperplane")
                         .imageScale(.large)

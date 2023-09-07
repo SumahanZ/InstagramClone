@@ -17,7 +17,7 @@ struct SearchView: View {
                 LazyVStack(spacing: 12) {
                     ForEach(searchVM.users) { user in
                         NavigationLink(value: user) {
-                            SearchUserRow(user: user)
+                            UserRow(user: user)
                                 .foregroundColor(.black)
                         }
                     }

@@ -66,9 +66,6 @@ struct ProfileHeaderView: View {
         .fullScreenCover(isPresented: $showEditProfile) {
             EditProfileView(user: user)
         }
-        .onAppear {
-            print("User Fullname", user.fullName)
-        }
     }
 }
 

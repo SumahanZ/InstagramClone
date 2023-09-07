@@ -30,4 +30,13 @@ class UserService {
         let currentUser = try snapshot.data(as: User.self)
         return currentUser
     }
+
+    static func fetchLikersPost(postLikers: [String]) async throws -> [User] {
+        var users: [User] = []
+        for uid in postLikers {
+            let likeUser = try await UserService.fetchUser(uid: uid)
+            users.append(likeUser)
+        }
+        return users
+    }
 }
