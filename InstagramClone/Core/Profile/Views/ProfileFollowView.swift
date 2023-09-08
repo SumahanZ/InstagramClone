@@ -10,18 +10,16 @@ import Foundation
 
 struct ProfileFollowView: View {
     let selection: StatViewSelection
-    @StateObject var followVM: ProfileFollowViewModel
-
-    init(user: User, selection: StatViewSelection) {
-        self.selection = selection
-        _followVM = StateObject(wrappedValue: ProfileFollowViewModel(user: user))
-    }
+    @ObservedObject var followVM: ProfileHeaderViewModel
 
     var body: some View {
         Group {
             switch selection {
             case .followers:
                 UserList(users: followVM.followers)
+                    .onAppear {
+                        Task { try? await followVM.fetchFollowersUser() }
+                    }
                     .refreshable {
                         Task { try? await followVM.fetchFollowersUser() }
                     }
@@ -29,6 +27,9 @@ struct ProfileFollowView: View {
                     .navigationTitle("Followers")
             case .following:
                 UserList(users: followVM.following)
+                    .onAppear {
+                        Task { try? await followVM.fetchFollowingsUser() }
+                    }
                     .refreshable {
                         Task { try? await followVM.fetchFollowingsUser() }
                     }
@@ -43,7 +44,7 @@ struct ProfileFollowView: View {
 
 struct ProfileFollowView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileFollowView(user: DeveloperPreview.MOCK_USERS[0], selection: .followers)
+        ProfileFollowView(selection: .followers, followVM: ProfileHeaderViewModel(user: DeveloperPreview.MOCK_USERS[0]))
     }
 }
 

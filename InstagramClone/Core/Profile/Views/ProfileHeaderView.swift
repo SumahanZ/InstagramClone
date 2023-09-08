@@ -23,9 +23,9 @@ struct ProfileHeaderView: View {
                 Spacer()
                 
                 HStack(spacing: 8) {
-                    UserStatView(user: profileHeaderVM.user, value: profileHeaderVM.postCount ?? 0, title: "Posts", pageSelection: .post)
-                    UserStatView(user: profileHeaderVM.user, value: profileHeaderVM.user.followers.count, title: "Followers", pageSelection: .followers)
-                    UserStatView(user: profileHeaderVM.user, value: profileHeaderVM.user.following.count, title: "Following", pageSelection: .following)
+                    UserStatView(followVM: profileHeaderVM, value: profileHeaderVM.postCount ?? 0, title: "Posts", pageSelection: .post)
+                    UserStatView(followVM: profileHeaderVM, value: profileHeaderVM.user.followers.count, title: "Followers", pageSelection: .followers)
+                    UserStatView(followVM: profileHeaderVM, value: profileHeaderVM.user.following.count, title: "Following", pageSelection: .following)
                 }
             }
             .padding(.horizontal)

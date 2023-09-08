@@ -25,6 +25,9 @@ struct SearchView: View {
                 .padding(.top, 8)
                 .searchable(text: $searchText, prompt: "Search...")
             }
+            .onAppear {
+                Task { try? await searchVM.fetchAllUsers() }
+            }
             .navigationTitle("Explore")
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: User.self) { user in

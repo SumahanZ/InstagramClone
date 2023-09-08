@@ -11,6 +11,8 @@ import Firebase
 class ProfileHeaderViewModel: ObservableObject {
     @Published var user: User
     @Published var postCount: Int?
+    @Published var followers: [User] = []
+    @Published var following: [User] = []
     
     var isFollower: Bool {
         guard let currentUid = Auth.auth().currentUser?.uid else { return false }
@@ -48,5 +50,15 @@ class ProfileHeaderViewModel: ObservableObject {
         self.user = self.user.updateFields(id: nil, username: nil, email: nil, profileImageUrl: nil, fullName: nil, bio: nil, following: nil, followers: followers)
         guard let encodedData = try? Firestore.Encoder().encode(self.user) else { return }
         try await Firestore.firestore().collection("users").document(self.user.id).updateData(encodedData)
+    }
+
+    @MainActor
+    func fetchFollowersUser() async throws {
+        followers = try await UserService.fetchFollowersUser(user: user)
+    }
+
+    @MainActor
+    func fetchFollowingsUser() async throws {
+        following = try await UserService.fetchFollowingUser(user: user)
     }
 }

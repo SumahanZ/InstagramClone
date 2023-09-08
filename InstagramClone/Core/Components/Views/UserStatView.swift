@@ -12,7 +12,7 @@ enum StatViewSelection {
 }
 
 struct UserStatView: View {
-    let user: User
+    @ObservedObject var followVM: ProfileHeaderViewModel
     let value: Int
     let title: String
     let pageSelection: StatViewSelection
@@ -20,7 +20,7 @@ struct UserStatView: View {
     var body: some View {
         VStack {
             NavigationLink {
-                ProfileFollowView(user: user, selection: pageSelection)
+                ProfileFollowView(selection: pageSelection, followVM: followVM)
             } label: {
                 VStack {
                     Text(value.description)
@@ -37,6 +37,6 @@ struct UserStatView: View {
 
 struct UserStatView_Previews: PreviewProvider {
     static var previews: some View {
-        UserStatView(user: DeveloperPreview.MOCK_USERS[0], value: 3, title: "Followers", pageSelection: .followers)
+        UserStatView(followVM: ProfileHeaderViewModel(user: DeveloperPreview.MOCK_USERS[0]), value: 3, title: "Followers", pageSelection: .followers)
     }
 }
