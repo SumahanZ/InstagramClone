@@ -15,13 +15,7 @@ struct LikeView: View {
     }
 
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(likeVM.postLikers) { user in
-                    UserRow(user: user)
-                }
-            }
-        }
+        UserList(users: likeVM.postLikers)
         .navigationTitle("Likes")
         .navigationBarTitleDisplayMode(.inline)
     }

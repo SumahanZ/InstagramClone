@@ -28,6 +28,11 @@ class DeveloperPreview {
         .init(id: UUID().uuidString, ownerUid: UUID().uuidString, caption: "Spider the spiderman", likes: 76, imageUrl: "spiderman", timeStamp: Timestamp(), user: MOCK_USERS[1])
     ]
 
+    static let MOCK_COMMENTS: [Comment] = [
+        .init(id: UUID().uuidString, content: "This post is so cool!", ownerUid: UUID().uuidString, timeStamp: Timestamp(), postUid: UUID().uuidString, commentLikers: [], user: MOCK_USERS[1]),
+        .init(id: UUID().uuidString, content: "Nice post man!", ownerUid: UUID().uuidString, timeStamp: Timestamp(), postUid: UUID().uuidString, commentLikers: [], user: MOCK_USERS[2])
+    ]
+    
     static let registrationVMPreview = RegistrationViewModel()
 }
 

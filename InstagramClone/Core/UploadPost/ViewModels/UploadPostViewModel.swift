@@ -9,7 +9,9 @@ import Foundation
 import PhotosUI
 import SwiftUI
 import Firebase
-
+/*
+ In summary, the purpose of having a service class in a ViewModel is to create a clear separation between Ul-related logic (ViewModel, changing the text of a textfield) and data-related operations (Service, fetching/updating data).
+ */
 /*
  Async function happens in the background thread, therefore when we have something to do with changing the ui, it has to happen in the main thread
  */

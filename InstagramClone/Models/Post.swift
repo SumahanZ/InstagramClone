@@ -22,6 +22,7 @@ struct Post: Identifiable, Codable, Hashable {
     let timeStamp: Timestamp
     var user: User?
     var postLikers: [String] = []
+    var postComments: [String] = []
 
     func updateFields(id: String?, ownerUid: String?, caption: String?, likes: Int?, imageUrl: String?, timeStamp: Timestamp?, user: User?, postLikers: [String]?) -> Post {
 

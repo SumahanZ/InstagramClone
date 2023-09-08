@@ -50,16 +50,16 @@ class EditProfileViewModel: ObservableObject {
              ImageUploader.saveImage() returns downloadURL, so we can reference the image that has already been saved inside of the FirebaseStorage
              */
             let imageURL = try await ImageUploader.saveImage(image: uiImage, pathName: "profile_images")
-            self.user = user.updateFields(id: nil, username: nil, email: nil, profileImageUrl: imageURL, fullName: nil, bio: nil)
+            self.user = user.updateFields(id: nil, username: nil, email: nil, profileImageUrl: imageURL, fullName: nil, bio: nil, following: nil, followers: nil)
         }
         //update name if changed
         if !fullName.isEmpty && user.fullName != fullName {
-            self.user = user.updateFields(id: nil, username: nil, email: nil, profileImageUrl: nil, fullName: fullName, bio: nil)
+            self.user = user.updateFields(id: nil, username: nil, email: nil, profileImageUrl: nil, fullName: fullName, bio: nil, following: nil, followers: nil)
         }
         
         //update bio if changed
         if !bio.isEmpty && user.bio != bio {
-            self.user = user.updateFields(id: nil, username: nil, email: nil, profileImageUrl: nil, fullName: nil, bio: bio)
+            self.user = user.updateFields(id: nil, username: nil, email: nil, profileImageUrl: nil, fullName: nil, bio: bio, following: nil, followers: nil)
         }
 
         //when using guard or if let try must be handle in a do catch block or use ?

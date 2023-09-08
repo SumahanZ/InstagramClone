@@ -9,12 +9,12 @@ import SwiftUI
 
 struct ProfileView: View {
     let user: User
-
+    
     var body: some View {
         /*
          Navigating from a navigationstack to another view that has a navigationstack will cause issues
          */
-        ScrollView {
+        VStack {
             ProfileHeaderView(user: user)
             PostGridView(user: user)
         }

@@ -9,62 +9,66 @@ import SwiftUI
 
 struct ProfileHeaderView: View {
     @State private var showEditProfile = false
-    let user: User
-
+    @StateObject private var profileHeaderVM: ProfileHeaderViewModel
+    
+    init(user: User) {
+        _profileHeaderVM = StateObject(wrappedValue: ProfileHeaderViewModel(user: user))
+    }
+    
     var body: some View {
         VStack(spacing: 10) {
             HStack {
-                CircularProfileImageView(user: user, size: .large)
-
+                CircularProfileImageView(user: profileHeaderVM.user, size: .large)
+                
                 Spacer()
-
+                
                 HStack(spacing: 8) {
-                    UserStatView(value: 3, title: "Posts")
-                    UserStatView(value: 12, title: "Followers")
-                    UserStatView(value: 24, title: "Following")
+                    UserStatView(user: profileHeaderVM.user, value: profileHeaderVM.postCount ?? 0, title: "Posts", pageSelection: .post)
+                    UserStatView(user: profileHeaderVM.user, value: profileHeaderVM.user.followers.count, title: "Followers", pageSelection: .followers)
+                    UserStatView(user: profileHeaderVM.user, value: profileHeaderVM.user.following.count, title: "Following", pageSelection: .following)
                 }
             }
             .padding(.horizontal)
-
+            
             VStack(alignment: .leading, spacing: 4) {
-                if let fullName = user.fullName {
+                if let fullName = profileHeaderVM.user.fullName {
                     Text(fullName)
                         .font(.footnote)
                         .fontWeight(.semibold)
                 }
                 
-                if let bio = user.bio {
+                if let bio = profileHeaderVM.user.bio {
                     Text(bio)
                         .font(.footnote)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
-
+            
             Button {
-                if user.isCurrentUser {
+                if profileHeaderVM.user.isCurrentUser {
                     showEditProfile.toggle()
                 } else {
-                    print("Follow user..")
+                    Task { try? await profileHeaderVM.changeFollowersState() }
                 }
             } label: {
-                Text(user.isCurrentUser ? "Edit Profile" : "Follow")
+                Text(profileHeaderVM.user.isCurrentUser ? "Edit Profile" : profileHeaderVM.isFollower ? "Unfollow" : "Follow")
                     .font(.subheadline)
                     .fontWeight(.semibold)
-                    .foregroundColor(user.isCurrentUser ? .black : .white)
+                    .foregroundColor(profileHeaderVM.user.isCurrentUser ? .black : .white)
                     .frame(width: 360, height: 32)
-                    .background(user.isCurrentUser ? .white : Color(.systemBlue))
+                    .background(profileHeaderVM.user.isCurrentUser ? .white : Color(.systemBlue))
                     .cornerRadius(6)
                     .overlay {
                         RoundedRectangle(cornerRadius: 6)
-                            .stroke(user.isCurrentUser ? .gray : .clear, lineWidth: 1)
+                            .stroke(profileHeaderVM.user.isCurrentUser ? .gray : .clear, lineWidth: 1)
                     }
             }
-
+            
             Divider()
         }
         .fullScreenCover(isPresented: $showEditProfile) {
-            EditProfileView(user: user)
+            EditProfileView(user: profileHeaderVM.user)
         }
     }
 }

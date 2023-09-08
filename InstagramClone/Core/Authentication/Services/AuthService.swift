@@ -81,6 +81,9 @@ class AuthService {
         /*
          Decode the data we got from firebase into a model of our own which is "User"
          */
+        /*
+         The current userData is only being fetched here so we don;t need to make this api call multiple times and instead just pass it down from MainTabView(user: currentUser)
+         */
         currentUser = try await UserService.fetchUser(uid: currentUid)
     }
     
@@ -104,8 +107,9 @@ class AuthService {
      Document: Instances of data (Differentiated using documents (uid) (Individual Post/User)
      Data Fields: data that is incorporated with each Document instances
      */
+    @MainActor
     private func uploadUserData(uid: String, username: String, email: String) async {
-        let user = User(id: uid, username: username, email: email)
+        let user = User(id: uid, username: username, email: email, profileImageUrl: nil, fullName: nil, bio: nil)
         /*
          try to Encode the UserModel into Data that can be stored in the FirestoreFirebase we make it guard let because the encoding can fail
          */

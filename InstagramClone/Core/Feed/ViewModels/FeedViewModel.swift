@@ -23,15 +23,14 @@ class FeedViewModel: ObservableObject {
     func fetchPosts() async throws {
         posts = try await PostService.fetchPosts()
     }
-    
-    //FIX LATER
+
     @MainActor
     func updateLikes(post: Post) async throws {
         var postLikers = post.postLikers
         var selectedPost: Post?
         guard let currentUID = Auth.auth().currentUser?.uid else { return }
         
-        if post.postLikers.contains(currentUID) {
+        if postLikers.contains(currentUID) {
             postLikers.removeAll(where: { $0 == currentUID })
             selectedPost = post.updateFields(id: nil, ownerUid: nil, caption: nil, likes: post.likes - 1, imageUrl: nil, timeStamp: nil, user: nil, postLikers: postLikers)
         } else {

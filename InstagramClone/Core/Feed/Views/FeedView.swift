@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FeedView: View {
     @StateObject private var feedVM = FeedViewModel()
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -19,6 +20,9 @@ struct FeedView: View {
                     }
                 }
                 .padding(.top, 8)
+            }
+            .refreshable {
+                Task { try? await feedVM.fetchPosts() }
             }
             .navigationTitle("Feed")
             .navigationBarTitleDisplayMode(.inline)

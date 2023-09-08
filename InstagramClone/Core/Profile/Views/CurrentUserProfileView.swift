@@ -12,7 +12,7 @@ struct CurrentUserProfileView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
+            VStack {
                 ProfileHeaderView(user: user)
                 PostGridView(user: user)
             }

@@ -23,15 +23,19 @@ struct PostGridView: View {
     ]
     
     var body: some View {
-        LazyVGrid(columns: gridColumns, spacing: 1) {
-            ForEach(profileVM.posts) { post in
-                KFImage(URL(string: post.imageUrl))
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: imageDimension, height: imageDimension)
-                    .clipped()
-                
+        ScrollView {
+            LazyVGrid(columns: gridColumns, spacing: 1) {
+                ForEach(profileVM.posts) { post in
+                    KFImage(URL(string: post.imageUrl))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: imageDimension, height: imageDimension)
+                        .clipped()
+                }
             }
+        }
+        .refreshable {
+            Task { try? await profileVM.fetchUserPosts() }
         }
     }
 }
