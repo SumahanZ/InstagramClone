@@ -16,7 +16,7 @@ struct FeedView: View {
             ScrollView {
                 LazyVStack(spacing: 32) {
                     ForEach(feedVM.posts) { post in
-                        FeedCell(post: post, userID: feedVM.currentUserID)
+                        FeedCell(selectedPost: $selectedPost, post: post, userID: feedVM.currentUserID)
                             .environmentObject(feedVM)
                     }
                 }
