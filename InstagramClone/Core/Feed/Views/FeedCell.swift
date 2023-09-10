@@ -10,7 +10,6 @@ import Kingfisher
 
 struct FeedCell: View {
     @Binding var selectedPost: Post?
-    @State private var showCommentSheet: Bool = false
     @State private var detents: PresentationDetent = .medium
     @EnvironmentObject var feedVM: FeedViewModel
     let post: Post
@@ -42,6 +41,7 @@ struct FeedCell: View {
             //action button
             HStack(spacing: 16) {
                 Button {
+                    print("Here")
                     Task { try? await feedVM.updateLikes(post: post) }
                 } label: {
                     Image(systemName: post.postLikers.contains(userID) ? "heart.fill" : "heart")
@@ -50,10 +50,7 @@ struct FeedCell: View {
                 }
                 
                 Button {
-                    //TODO: Comment sheet toggle here
                     selectedPost = post
-                    showCommentSheet.toggle()
-                    print("Comment on Post")
                 } label: {
                     Image(systemName: "bubble.right")
                         .imageScale(.large)
@@ -106,11 +103,9 @@ struct FeedCell: View {
                 .foregroundColor(.gray)
             
         }
-        .sheet(isPresented: $showCommentSheet) {
-            if let selectedPost {
-                CommentSheetView(post: selectedPost)
-                    .presentationDetents([.medium, .large])
-            }
+        .sheet(item: $selectedPost) { value in
+            CommentSheetView(post: value)
+                .presentationDetents([.medium])
         }
     }
 }

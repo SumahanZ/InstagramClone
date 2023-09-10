@@ -25,9 +25,6 @@ class ProfileHeaderViewModel: ObservableObject {
     
     init(user: User) {
         self.user = user
-        //        Task {
-        //            try? await getNumberOfPostByUser()
-        //        }
     }
     
     @MainActor
