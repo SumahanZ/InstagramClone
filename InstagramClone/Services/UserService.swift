@@ -42,20 +42,24 @@ class UserService {
     }
 
     static func fetchFollowersUser(user: User) async throws -> [User] {
-        var followers: [User] = []
-        for uid in user.followers {
-            let follower = try await UserService.fetchUser(uid: uid)
-            followers.append(follower)
-        }
-        return followers
+        //        var followers: [User] = []
+        //        for uid in user.followers {
+        //            let follower = try await UserService.fetchUser(uid: uid)
+        //            followers.append(follower)
+        //        }
+        //        return followers
+        let snapshot = try await Firestore.firestore().collection("users").whereField("postfollowing", arrayContains: user.id).getDocuments()
+        return snapshot.documents.compactMap({ try? $0.data(as: User.self) })
     }
 
     static func fetchFollowingUser(user: User) async throws -> [User] {
-        var followings: [User] = []
-        for uid in user.following {
-            let following = try await UserService.fetchUser(uid: uid)
-            followings.append(following)
-        }
-        return followings
+        //        var followings: [User] = []
+        //        for uid in user.following {
+        //            let following = try await UserService.fetchUser(uid: uid)
+        //            followings.append(following)
+        //        }
+        //        return followings
+        let snapshot = try await Firestore.firestore().collection("users").whereField("postfollowers", arrayContains: user.id).getDocuments()
+        return snapshot.documents.compactMap({ try? $0.data(as: User.self) })
     }
 }

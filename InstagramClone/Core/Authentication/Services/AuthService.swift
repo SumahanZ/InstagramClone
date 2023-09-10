@@ -66,7 +66,7 @@ class AuthService {
     }
     
     @MainActor
-    private func loadUserData() async throws {
+    func loadUserData() async throws {
         /*
          Auth.auth().currentUser is a property from firebase that checks whether a user session exist or not determined from the state of the user (logged in or not)
          */

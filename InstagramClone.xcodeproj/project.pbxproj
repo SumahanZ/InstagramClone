@@ -40,6 +40,9 @@
 		93AE3D0B2AA1806200131FBE /* CurrentUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AE3D0A2AA1806200131FBE /* CurrentUserProfileView.swift */; };
 		93AE3D0D2AA1832200131FBE /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AE3D0C2AA1832200131FBE /* Post.swift */; };
 		93AE3D0F2AA1920E00131FBE /* PostGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AE3D0E2AA1920E00131FBE /* PostGridView.swift */; };
+		93D77ECC2AAC337900AE56D3 /* CommentSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D77ECB2AAC337900AE56D3 /* CommentSheetView.swift */; };
+		93D77ECE2AAC52B000AE56D3 /* CommentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D77ECD2AAC52B000AE56D3 /* CommentRow.swift */; };
+		93D77ED02AAC7AD400AE56D3 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D77ECF2AAC7AD400AE56D3 /* CommentViewModel.swift */; };
 		93FF93B72AA19579006B0C75 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF93B62AA19579006B0C75 /* ProfileHeaderView.swift */; };
 		93FF93BA2AA19694006B0C75 /* UploadPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF93B92AA19694006B0C75 /* UploadPostView.swift */; };
 		93FF93BC2AA19E4A006B0C75 /* UploadPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF93BB2AA19E4A006B0C75 /* UploadPostViewModel.swift */; };
@@ -97,6 +100,9 @@
 		93AE3D0A2AA1806200131FBE /* CurrentUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserProfileView.swift; sourceTree = "<group>"; };
 		93AE3D0C2AA1832200131FBE /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		93AE3D0E2AA1920E00131FBE /* PostGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostGridView.swift; sourceTree = "<group>"; };
+		93D77ECB2AAC337900AE56D3 /* CommentSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSheetView.swift; sourceTree = "<group>"; };
+		93D77ECD2AAC52B000AE56D3 /* CommentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRow.swift; sourceTree = "<group>"; };
+		93D77ECF2AAC7AD400AE56D3 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		93FF93B62AA19579006B0C75 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		93FF93B92AA19694006B0C75 /* UploadPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostView.swift; sourceTree = "<group>"; };
 		93FF93BB2AA19E4A006B0C75 /* UploadPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostViewModel.swift; sourceTree = "<group>"; };
@@ -134,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				93AC6BE82AA74906008AA494 /* FeedViewModel.swift */,
+				93D77ECF2AAC7AD400AE56D3 /* CommentViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -364,6 +371,8 @@
 			children = (
 				93AE3CEC2AA054AE00131FBE /* FeedView.swift */,
 				93AE3CEE2AA054B600131FBE /* FeedCell.swift */,
+				93D77ECB2AAC337900AE56D3 /* CommentSheetView.swift */,
+				93D77ECD2AAC52B000AE56D3 /* CommentRow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -547,11 +556,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93D77ED02AAC7AD400AE56D3 /* CommentViewModel.swift in Sources */,
 				93AE3CEF2AA054B600131FBE /* FeedCell.swift in Sources */,
 				93FF93ED2AA72C40006B0C75 /* CircularProfileImageView.swift in Sources */,
 				93AE3D0B2AA1806200131FBE /* CurrentUserProfileView.swift in Sources */,
 				93AC6BF62AA822E1008AA494 /* LikeView.swift in Sources */,
 				93AC6BEB2AA7507E008AA494 /* PostService.swift in Sources */,
+				93D77ECE2AAC52B000AE56D3 /* CommentRow.swift in Sources */,
 				93AE3D012AA0B65500131FBE /* CreatePasswordView.swift in Sources */,
 				93AE3CCA2AA0221000131FBE /* ContentView.swift in Sources */,
 				93AC6BFA2AA95F05008AA494 /* Comment.swift in Sources */,
@@ -581,6 +592,7 @@
 				93AC6BE92AA74906008AA494 /* FeedViewModel.swift in Sources */,
 				93FF93D42AA30FB9006B0C75 /* LoginViewModel.swift in Sources */,
 				93AE3CFB2AA0B14300131FBE /* IGTextFieldModifier.swift in Sources */,
+				93D77ECC2AAC337900AE56D3 /* CommentSheetView.swift in Sources */,
 				93AE3CEA2AA0423100131FBE /* UserStatView.swift in Sources */,
 				93AC6C022AA9DB55008AA494 /* UserList.swift in Sources */,
 				93AE3CED2AA054AE00131FBE /* FeedView.swift in Sources */,

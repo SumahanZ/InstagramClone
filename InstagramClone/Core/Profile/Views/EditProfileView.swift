@@ -65,6 +65,7 @@ struct EditProfileView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
+                        //Update current user 
                         Task { try? await profileVM.updateUserData() }
                         dismiss.callAsFunction()
                     } label: {

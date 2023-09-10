@@ -25,9 +25,9 @@ class ProfileHeaderViewModel: ObservableObject {
     
     init(user: User) {
         self.user = user
-        Task {
-            try? await getNumberOfPostByUser()
-        }
+        //        Task {
+        //            try? await getNumberOfPostByUser()
+        //        }
     }
     
     @MainActor
@@ -38,18 +38,25 @@ class ProfileHeaderViewModel: ObservableObject {
     
     @MainActor
     func changeFollowersState() async throws {
-        var followers = user.followers
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        let currentUser = try await UserService.fetchUser(uid: currentUid)
+        var followers = user.followers
+        var following = currentUser.following
         
         if isFollower {
             followers.removeAll(where: ({ $0 == currentUid }))
+            following.removeAll(where: ({ $0 == user.id }))
+
         } else {
             followers.append(currentUid)
+            following.append(user.id)
         }
         
-        self.user = self.user.updateFields(id: nil, username: nil, email: nil, profileImageUrl: nil, fullName: nil, bio: nil, following: nil, followers: followers)
-        guard let encodedData = try? Firestore.Encoder().encode(self.user) else { return }
-        try await Firestore.firestore().collection("users").document(self.user.id).updateData(encodedData)
+        user = user.updateFields(id: nil, username: nil, email: nil, profileImageUrl: nil, fullName: nil, bio: nil, following: nil, followers: followers)
+        let currentUserData = currentUser.updateFields(id: nil, username: nil, email: nil, profileImageUrl: nil, fullName: nil, bio: nil, following: following, followers: nil)
+        guard let encodedDataTargetUser = try? Firestore.Encoder().encode(user), let encodedDataCurrentUser = try? Firestore.Encoder().encode(currentUserData) else { return }
+        try await Firestore.firestore().collection("users").document(user.id).updateData(encodedDataTargetUser)
+        try await Firestore.firestore().collection("users").document(currentUid).updateData(encodedDataCurrentUser)
     }
 
     @MainActor

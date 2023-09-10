@@ -18,8 +18,7 @@ class PostService {
          We need to do this because if we use for post in posts, the post is made as a let constant
          */
         for (index, _) in posts.enumerated() {
-            let ownerUid = posts[index].ownerUid
-            let postUser = try await UserService.fetchUser(uid: ownerUid)
+            let postUser = try await UserService.fetchUser(uid: posts[index].ownerUid)
             posts[index].user = postUser
         }
         return posts

@@ -12,6 +12,7 @@ struct ProfileHeaderView: View {
     @StateObject private var profileHeaderVM: ProfileHeaderViewModel
     
     init(user: User) {
+        print(user)
         _profileHeaderVM = StateObject(wrappedValue: ProfileHeaderViewModel(user: user))
     }
     
@@ -66,6 +67,13 @@ struct ProfileHeaderView: View {
             }
             
             Divider()
+        }
+        //temporary solution
+        .onAppear {
+            Task {
+                profileHeaderVM.user = try! await UserService.fetchUser(uid: profileHeaderVM.user.id)
+                try? await profileHeaderVM.getNumberOfPostByUser()
+            }
         }
         .fullScreenCover(isPresented: $showEditProfile) {
             EditProfileView(user: profileHeaderVM.user)

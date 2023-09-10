@@ -9,6 +9,9 @@ import SwiftUI
 import Kingfisher
 
 struct FeedCell: View {
+    @Binding var selectedPost: Post?
+    @State private var showCommentSheet: Bool = false
+    @State private var detents: PresentationDetent = .medium
     @EnvironmentObject var feedVM: FeedViewModel
     let post: Post
     let userID: String
@@ -19,7 +22,7 @@ struct FeedCell: View {
             HStack {
                 if let user = post.user {
                     CircularProfileImageView(user: user, size: .xSmall)
-
+                    
                     Text(user.username)
                         .font(.footnote)
                         .fontWeight(.semibold)
@@ -28,14 +31,14 @@ struct FeedCell: View {
                 Spacer()
             }
             .padding(.leading)
-
+            
             //post image
             KFImage(URL(string: post.imageUrl))
                 .resizable()
                 .scaledToFill()
                 .frame(height: 400)
                 .clipShape(Rectangle())
-
+            
             //action button
             HStack(spacing: 16) {
                 Button {
@@ -45,29 +48,31 @@ struct FeedCell: View {
                         .foregroundColor(post.postLikers.contains(userID) ? .red : .black)
                         .imageScale(.large)
                 }
-
+                
                 Button {
                     //TODO: Comment sheet toggle here
+                    selectedPost = post
+                    showCommentSheet.toggle()
                     print("Comment on Post")
                 } label: {
                     Image(systemName: "bubble.right")
                         .imageScale(.large)
                 }
-
+                
                 Button {
                     print("Share Post")
                 } label: {
                     Image(systemName: "paperplane")
                         .imageScale(.large)
                 }
-
+                
                 Spacer()
-
+                
             }
             .padding(.leading, 8)
             .padding(.top, 4)
             .foregroundColor(.black)
-
+            
             //likes label
             NavigationLink {
                 LikeView(post: post)
@@ -90,7 +95,7 @@ struct FeedCell: View {
             .font(.footnote)
             .padding(.leading, 10)
             .padding(.top, 1)
-
+            
             //timestamp label
             Text("6h ago")
                 .font(.footnote)
@@ -99,13 +104,19 @@ struct FeedCell: View {
                 .padding(.leading, 10)
                 .padding(.top, 1)
                 .foregroundColor(.gray)
-
+            
+        }
+        .sheet(isPresented: $showCommentSheet) {
+            if let selectedPost {
+                CommentSheetView(post: selectedPost)
+                    .presentationDetents([.medium, .large])
+            }
         }
     }
 }
 
 struct FeedCell_Previews: PreviewProvider {
     static var previews: some View {
-        FeedCell(post: DeveloperPreview.MOCK_POSTS[1], userID: DeveloperPreview.MOCK_USERS[0].id)
+        FeedCell(selectedPost: .constant(nil), post: DeveloperPreview.MOCK_POSTS[1], userID: DeveloperPreview.MOCK_USERS[0].id)
     }
 }

@@ -12,12 +12,14 @@ import Kingfisher
  An enum made specially for the CircularProfileImageView to configure the image dimensions
  */
 enum ProfileImageSize {
-    case xSmall, small, medium, large
+    case xXSmall, xSmall, small, medium, large
     /*
      Instead of always passing raw values, and we might forget what image should be what size, this enum will make it easier for us and we have a fixed number of options, instead of passing it manually.
      */
     var dimension: CGFloat {
         switch self {
+        case .xXSmall:
+            return 35
         case .xSmall:
             return 40
         case .small:

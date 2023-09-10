@@ -34,7 +34,7 @@ struct ProfileFollowView: View {
                         Task { try? await followVM.fetchFollowingsUser() }
                     }
                     .padding(.top, 10)
-                    .navigationTitle("Followers")
+                    .navigationTitle("Following")
             default:
                 EmptyView()
             }

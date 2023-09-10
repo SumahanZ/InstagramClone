@@ -20,6 +20,7 @@ struct Post: Identifiable, Codable, Hashable {
     let imageUrl: String
     //we use Timestamp object because firebase doesn't accept Date object to be put in FireStore
     let timeStamp: Timestamp
+    //This is needed so we can access UserData in a post (profileImage,fullname)
     var user: User?
     var postLikers: [String] = []
     var postComments: [String] = []

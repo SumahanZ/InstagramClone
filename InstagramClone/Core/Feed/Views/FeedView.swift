@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FeedView: View {
     @StateObject private var feedVM = FeedViewModel()
+    @State private var selectedPost: Post?
 
     var body: some View {
         NavigationStack {
