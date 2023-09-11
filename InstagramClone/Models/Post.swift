@@ -24,9 +24,9 @@ struct Post: Identifiable, Codable, Hashable {
     var user: User?
     var postLikers: [String] = []
     var postComments: [String] = []
-
-    func updateFields(id: String?, ownerUid: String?, caption: String?, likes: Int?, imageUrl: String?, timeStamp: Timestamp?, user: User?, postLikers: [String]?) -> Post {
-
-        return Post(id: id ?? self.id, ownerUid: ownerUid ?? self.ownerUid, caption: caption ?? self.caption, likes: likes ?? self.likes, imageUrl: imageUrl ?? self.imageUrl, timeStamp: timeStamp ?? self.timeStamp, user: user ?? self.user, postLikers: postLikers ?? self.postLikers)
+    
+    func updateFields(id: String?, ownerUid: String?, caption: String?, likes: Int?, imageUrl: String?, timeStamp: Timestamp?, postLikers: [String]?) -> Post {
+        
+        return Post(id: id ?? self.id, ownerUid: ownerUid ?? self.ownerUid, caption: caption ?? self.caption, likes: likes ?? self.likes, imageUrl: imageUrl ?? self.imageUrl, timeStamp: timeStamp ?? self.timeStamp, postLikers: postLikers ?? self.postLikers)
     }
 }

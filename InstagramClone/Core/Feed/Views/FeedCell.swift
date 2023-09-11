@@ -41,7 +41,6 @@ struct FeedCell: View {
             //action button
             HStack(spacing: 16) {
                 Button {
-                    print("Here")
                     Task { try? await feedVM.updateLikes(post: post) }
                 } label: {
                     Image(systemName: post.postLikers.contains(userID) ? "heart.fill" : "heart")

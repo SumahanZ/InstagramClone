@@ -6,40 +6,47 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct CommentRow: View {
     let comment: Comment
-
+    @EnvironmentObject var commentVM: CommentViewModel
+    
     var body: some View {
         HStack(alignment: .center) {
             if let user = comment.user {
                 CircularProfileImageView(user: user, size: .xSmall)
             }
-
+            
             VStack(alignment: .leading, spacing: 3) {
                 if let username = comment.user?.username {
                     Text(username)
                         .fontWeight(.semibold)
                 }
-
+                
                 Text(comment.content)
                     .frame(maxWidth: UIScreen.main.bounds.width * 0.4, alignment: .leading)
-
-
-                Text("6 Likes")
-                    .padding(.leading, 1)
-                    .font(.caption2)
-                    .fontWeight(.medium)
-                    .foregroundColor(.gray)
-
+                
+                if !comment.commentLikers.isEmpty {
+                    Text("\(comment.commentLikers.count) Likes")
+                        .padding(.leading, 1)
+                        .font(.caption2)
+                        .fontWeight(.medium)
+                        .foregroundColor(.gray)
+                }
+                
             }
             .font(.footnote)
-
+            
             Spacer()
-
-            Image(systemName: "heart.fill")
+            
+            Image(systemName: comment.commentLikers.contains(Auth.auth().currentUser?.uid ?? "") ? "heart.fill" : "heart")
                 .imageScale(.small)
-                .foregroundColor(.red)
+                .foregroundColor(comment.commentLikers.contains(Auth.auth().currentUser?.uid ?? "") ? .red : Color.black.opacity(0.4))
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    Task { try? await commentVM.commentChangeLikeState(comment: comment) }
+                }
         }
         .padding(.vertical, 5)
         .padding(.horizontal)

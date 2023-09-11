@@ -5,8 +5,8 @@
 //  Created by Kevin Sander Utomo on 07/09/23.
 //
 
-import Foundation
 import Firebase
+import Foundation
 
 struct Comment: Identifiable, Codable, Hashable {
     let id: String
@@ -19,8 +19,8 @@ struct Comment: Identifiable, Codable, Hashable {
     //This is needed so we can access UserData of the comment creator (profileImage,fullname)
     var user: User?
     //This is needed so we can access PostData of the comment creator (profileImage,fullname)
-
+    
     func updateFields(id: String?, content: String?, ownerUid: String?, timeStamp: Timestamp?, postUid: String?, commentLikers: [String]?) -> Comment {
-        return Comment(id: id ?? self.id, content: content ?? self.content, ownerUid: ownerUid ?? self.ownerUid, timeStamp: timeStamp ?? self.timeStamp, postUid: postUid ?? self.postUid)
+        return Comment(id: id ?? self.id, content: content ?? self.content, ownerUid: ownerUid ?? self.ownerUid, timeStamp: timeStamp ?? self.timeStamp, postUid: postUid ?? self.postUid, commentLikers: commentLikers ?? self.commentLikers)
     }
 }

@@ -9,6 +9,7 @@ import Foundation
 import PhotosUI
 import SwiftUI
 import Firebase
+import FirebaseFirestoreSwift
 /*
  In summary, the purpose of having a service class in a ViewModel is to create a clear separation between Ul-related logic (ViewModel, changing the text of a textfield) and data-related operations (Service, fetching/updating data).
  */

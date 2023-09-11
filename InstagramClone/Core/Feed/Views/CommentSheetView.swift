@@ -23,21 +23,31 @@ struct CommentSheetView: View {
                 .fontWeight(.semibold)
             
             Divider()
-            
-            ScrollView {
-                LazyVStack {
-                    if commentVM.comments.isEmpty {
-                        ForEach(DeveloperPreview.MOCK_COMMENTS) { comment in
+
+            if !commentVM.comments.isEmpty {
+                ScrollView {
+                    LazyVStack {
+                        ForEach(commentVM.comments) { comment in
                             CommentRow(comment: comment)
+                                .environmentObject(commentVM)
                         }
-                    } else {
-                        Text("No comments")
                     }
                 }
-                .onAppear {
-                    Task { try? await commentVM.fetchCommentsPost() }
+
+            } else {
+                Spacer()
+                VStack(spacing: 10) {
+                    Text("No comments yet")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                    Text("Start the conversation.")
+                        .foregroundColor(.gray)
+                        .font(.caption)
+                        .fontWeight(.regular)
                 }
             }
+
+            Spacer()
 
             if let username = post.user?.username {
                 GeometryReader { reader in
@@ -46,7 +56,7 @@ struct CommentSheetView: View {
                             .font(.subheadline)
                             .padding(.vertical, 10)
                             .frame(width: reader.size.width * 0.75)
-
+                        
                     }
                     .padding(.horizontal, 15)
                     .frame(width: reader.size.width, alignment: .leading)
@@ -56,10 +66,19 @@ struct CommentSheetView: View {
                     )
                     .overlay(
                         Text("Post")
-                            .padding(.horizontal)
                             .opacity(commentVM.commentContent.isEmpty ? 0 : 1)
                             .fontWeight(.semibold)
                             .foregroundColor(.blue)
+                            .padding(.horizontal)
+                            .contentShape(Rectangle())
+                            .disabled(commentVM.commentContent.isEmpty ? true : false)
+                            .onTapGesture {
+                                //TODO: Create comment for this post
+                                Task {
+                                    try? await commentVM.addComment(content: commentVM.commentContent)
+                                    UIApplication.shared.endEditing()
+                                }
+                            }
                             .animation(.easeIn, value: commentVM.commentContent), alignment: .trailing
                     )
                 }
@@ -67,7 +86,17 @@ struct CommentSheetView: View {
                 .padding(.horizontal, 20)
             }
         }
+        .frame(maxHeight: .infinity)
         .padding(.vertical, 30)
+        .onTapGesture {
+            UIApplication.shared.endEditing()
+        }
+        .onAppear {
+            Task { try? await commentVM.fetchCommentsPost() }
+        }
+        .refreshable {
+            Task { try? await commentVM.fetchCommentsPost() }
+        }
     }
 }
 
