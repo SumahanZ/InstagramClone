@@ -28,14 +28,14 @@ class CommentViewModel: ObservableObject {
     @MainActor
     func addComment(content: String) async throws {
         //TODO: Add comments
-        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        guard let currentUserId = Auth.auth().currentUser?.uid, let postOwner = post.user else { return }
         let commentID = commentsCollection.document().documentID
         var comment = Comment(id: commentID, content: commentContent, ownerUid: currentUserId, timeStamp: Timestamp(), postUid: post.id)
         guard let encodedData = try? Firestore.Encoder().encode(comment) else { return }
         try await Firestore.firestore().collection("comments").document(comment.id).setData(encodedData)
+        try await NotificationService.addNotification(targetUserID: postOwner.id, post: post, notificationType: .comment)
         comment.user = post.user
         self.comments.append(comment)
-        print("Entered in comment here")
     }
     
     @MainActor
@@ -56,6 +56,5 @@ class CommentViewModel: ObservableObject {
         comments[index].user = comment.user
         guard let encodedData = try? Firestore.Encoder().encode(selectedComment) else { return }
         try await Firestore.firestore().collection("comments").document(comment.id).updateData(encodedData)
-        print("Finished")
     }
 }

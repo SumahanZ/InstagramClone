@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		932532162AAEC0F200D032C9 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932532152AAEC0F200D032C9 /* Notification.swift */; };
+		9325321B2AAF317B00D032C9 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9325321A2AAF317B00D032C9 /* NotificationView.swift */; };
+		9325321D2AAF318300D032C9 /* NotificationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9325321C2AAF318300D032C9 /* NotificationRowView.swift */; };
+		9325321F2AAF5CDC00D032C9 /* FollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9325321E2AAF5CDC00D032C9 /* FollowButton.swift */; };
+		932532222AAF72DC00D032C9 /* RectangleNotificationImagePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932532212AAF72DC00D032C9 /* RectangleNotificationImagePostView.swift */; };
+		932532242AB0731000D032C9 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932532232AB0731000D032C9 /* NotificationViewModel.swift */; };
 		93AC6BE92AA74906008AA494 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC6BE82AA74906008AA494 /* FeedViewModel.swift */; };
 		93AC6BEB2AA7507E008AA494 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC6BEA2AA7507E008AA494 /* PostService.swift */; };
 		93AC6BF12AA7786F008AA494 /* PostGridViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC6BF02AA7786F008AA494 /* PostGridViewModel.swift */; };
@@ -42,7 +47,7 @@
 		93AE3D0D2AA1832200131FBE /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AE3D0C2AA1832200131FBE /* Post.swift */; };
 		93AE3D0F2AA1920E00131FBE /* PostGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AE3D0E2AA1920E00131FBE /* PostGridView.swift */; };
 		93D77ECC2AAC337900AE56D3 /* CommentSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D77ECB2AAC337900AE56D3 /* CommentSheetView.swift */; };
-		93D77ECE2AAC52B000AE56D3 /* CommentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D77ECD2AAC52B000AE56D3 /* CommentRow.swift */; };
+		93D77ECE2AAC52B000AE56D3 /* CommentRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D77ECD2AAC52B000AE56D3 /* CommentRowView.swift */; };
 		93D77ED02AAC7AD400AE56D3 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D77ECF2AAC7AD400AE56D3 /* CommentViewModel.swift */; };
 		93D77ED22AADF1FF00AE56D3 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D77ED12AADF1FF00AE56D3 /* NotificationService.swift */; };
 		93D77ED42AAE12A000AE56D3 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D77ED32AAE12A000AE56D3 /* UIApplication.swift */; };
@@ -70,6 +75,11 @@
 
 /* Begin PBXFileReference section */
 		932532152AAEC0F200D032C9 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		9325321A2AAF317B00D032C9 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		9325321C2AAF318300D032C9 /* NotificationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRowView.swift; sourceTree = "<group>"; };
+		9325321E2AAF5CDC00D032C9 /* FollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButton.swift; sourceTree = "<group>"; };
+		932532212AAF72DC00D032C9 /* RectangleNotificationImagePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleNotificationImagePostView.swift; sourceTree = "<group>"; };
+		932532232AB0731000D032C9 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		93AC6BE82AA74906008AA494 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		93AC6BEA2AA7507E008AA494 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		93AC6BF02AA7786F008AA494 /* PostGridViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostGridViewModel.swift; sourceTree = "<group>"; };
@@ -105,7 +115,7 @@
 		93AE3D0C2AA1832200131FBE /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		93AE3D0E2AA1920E00131FBE /* PostGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostGridView.swift; sourceTree = "<group>"; };
 		93D77ECB2AAC337900AE56D3 /* CommentSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSheetView.swift; sourceTree = "<group>"; };
-		93D77ECD2AAC52B000AE56D3 /* CommentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRow.swift; sourceTree = "<group>"; };
+		93D77ECD2AAC52B000AE56D3 /* CommentRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRowView.swift; sourceTree = "<group>"; };
 		93D77ECF2AAC7AD400AE56D3 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		93D77ED12AADF1FF00AE56D3 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		93D77ED32AAE12A000AE56D3 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -142,6 +152,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		932532172AAF314700D032C9 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				932532192AAF315300D032C9 /* ViewModels */,
+				932532182AAF314E00D032C9 /* Views */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		932532182AAF314E00D032C9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9325321A2AAF317B00D032C9 /* NotificationView.swift */,
+				9325321C2AAF318300D032C9 /* NotificationRowView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		932532192AAF315300D032C9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				932532232AB0731000D032C9 /* NotificationViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		93AC6BE72AA748F8008AA494 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +197,8 @@
 				93AE3D0E2AA1920E00131FBE /* PostGridView.swift */,
 				93FF93EC2AA72C40006B0C75 /* CircularProfileImageView.swift */,
 				93AC6C012AA9DB55008AA494 /* UserList.swift */,
+				9325321E2AAF5CDC00D032C9 /* FollowButton.swift */,
+				932532212AAF72DC00D032C9 /* RectangleNotificationImagePostView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -268,6 +306,7 @@
 		93AE3CD82AA0324500131FBE /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				932532172AAF314700D032C9 /* Notification */,
 				93AC6BF22AA822B8008AA494 /* Like */,
 				93AE3CDA2AA032AC00131FBE /* Authentication */,
 				93AE3CE32AA0338300131FBE /* Components */,
@@ -380,7 +419,7 @@
 				93AE3CEC2AA054AE00131FBE /* FeedView.swift */,
 				93AE3CEE2AA054B600131FBE /* FeedCell.swift */,
 				93D77ECB2AAC337900AE56D3 /* CommentSheetView.swift */,
-				93D77ECD2AAC52B000AE56D3 /* CommentRow.swift */,
+				93D77ECD2AAC52B000AE56D3 /* CommentRowView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -568,18 +607,21 @@
 				93D77ED02AAC7AD400AE56D3 /* CommentViewModel.swift in Sources */,
 				93AE3CEF2AA054B600131FBE /* FeedCell.swift in Sources */,
 				93FF93ED2AA72C40006B0C75 /* CircularProfileImageView.swift in Sources */,
+				9325321B2AAF317B00D032C9 /* NotificationView.swift in Sources */,
 				93AE3D0B2AA1806200131FBE /* CurrentUserProfileView.swift in Sources */,
 				93AC6BF62AA822E1008AA494 /* LikeView.swift in Sources */,
 				93AC6BEB2AA7507E008AA494 /* PostService.swift in Sources */,
-				93D77ECE2AAC52B000AE56D3 /* CommentRow.swift in Sources */,
+				93D77ECE2AAC52B000AE56D3 /* CommentRowView.swift in Sources */,
 				93AE3D012AA0B65500131FBE /* CreatePasswordView.swift in Sources */,
 				93AE3CCA2AA0221000131FBE /* ContentView.swift in Sources */,
 				93AC6BFA2AA95F05008AA494 /* Comment.swift in Sources */,
 				93AE3D052AA0BE5E00131FBE /* User.swift in Sources */,
 				93FF93DB2AA5D25B006B0C75 /* SearchViewModel.swift in Sources */,
+				9325321D2AAF318300D032C9 /* NotificationRowView.swift in Sources */,
 				93AE3CF52AA09DD300131FBE /* LoginView.swift in Sources */,
 				93FF93E22AA624BA006B0C75 /* EditProfileRowView.swift in Sources */,
 				93AC6BFC2AA96ED6008AA494 /* CommentService.swift in Sources */,
+				932532242AB0731000D032C9 /* NotificationViewModel.swift in Sources */,
 				93AE3CC82AA0221000131FBE /* InstagramCloneApp.swift in Sources */,
 				93AE3CF92AA0A97300131FBE /* AddEmailView.swift in Sources */,
 				93AE3CFF2AA0B3F000131FBE /* RegistrationField.swift in Sources */,
@@ -601,6 +643,7 @@
 				93FF93DD2AA5E68D006B0C75 /* EditProfileView.swift in Sources */,
 				93FF93BA2AA19694006B0C75 /* UploadPostView.swift in Sources */,
 				93AC6BE92AA74906008AA494 /* FeedViewModel.swift in Sources */,
+				9325321F2AAF5CDC00D032C9 /* FollowButton.swift in Sources */,
 				93FF93D42AA30FB9006B0C75 /* LoginViewModel.swift in Sources */,
 				93AE3CFB2AA0B14300131FBE /* IGTextFieldModifier.swift in Sources */,
 				93D77ECC2AAC337900AE56D3 /* CommentSheetView.swift in Sources */,
@@ -615,6 +658,7 @@
 				93FF93CB2AA20280006B0C75 /* AuthService.swift in Sources */,
 				93FF93E42AA6B9E7006B0C75 /* ImageUploaderService.swift in Sources */,
 				93AC6BF82AA822EB008AA494 /* LikeViewModel.swift in Sources */,
+				932532222AAF72DC00D032C9 /* RectangleNotificationImagePostView.swift in Sources */,
 				932532162AAEC0F200D032C9 /* Notification.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

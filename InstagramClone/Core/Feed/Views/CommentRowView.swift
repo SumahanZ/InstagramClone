@@ -8,7 +8,7 @@
 import SwiftUI
 import Firebase
 
-struct CommentRow: View {
+struct CommentRowView: View {
     let comment: Comment
     @EnvironmentObject var commentVM: CommentViewModel
     
@@ -53,9 +53,9 @@ struct CommentRow: View {
     }
 }
 
-struct CommentRow_Previews: PreviewProvider {
+struct CommentRowView_Previews: PreviewProvider {
     static var previews: some View {
-        CommentRow(comment: DeveloperPreview.MOCK_COMMENTS[0])
+        CommentRowView(comment: DeveloperPreview.MOCK_COMMENTS[0])
             .previewLayout(.sizeThatFits)
     }
 }

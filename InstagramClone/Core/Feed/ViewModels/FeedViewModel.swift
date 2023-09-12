@@ -23,12 +23,12 @@ class FeedViewModel: ObservableObject {
     func fetchPosts() async throws {
         posts = try await PostService.fetchPosts()
     }
-
+    
     @MainActor
     func updateLikes(post: Post) async throws {
         var postLikers = post.postLikers
         var selectedPost: Post?
-        guard let currentUID = Auth.auth().currentUser?.uid else { return }
+        guard let currentUID = Auth.auth().currentUser?.uid, let postOwner = post.user else { return }
         
         if postLikers.contains(currentUID) {
             postLikers.removeAll(where: { $0 == currentUID })
@@ -36,6 +36,7 @@ class FeedViewModel: ObservableObject {
         } else {
             postLikers.append(currentUID)
             selectedPost = post.updateFields(id: nil, ownerUid: nil, caption: nil, likes: post.likes + 1, imageUrl: nil, timeStamp: nil, postLikers: postLikers)
+            try await NotificationService.addNotification(targetUserID: postOwner.id, post: post, notificationType: .like)
         }
         
         guard let index = posts.firstIndex(where: ({ $0.id == post.id })), let selectedPost else { return }

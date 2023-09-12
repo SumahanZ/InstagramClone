@@ -16,11 +16,7 @@ class ProfileHeaderViewModel: ObservableObject {
     
     var isFollower: Bool {
         guard let currentUid = Auth.auth().currentUser?.uid else { return false }
-        if !user.isCurrentUser && user.followers.contains(currentUid) {
-            return true
-        } else {
-            return false
-        }
+        return !user.isCurrentUser && user.followers.contains(currentUid) ? true : false
     }
     
     init(user: User) {
@@ -43,10 +39,11 @@ class ProfileHeaderViewModel: ObservableObject {
         if isFollower {
             followers.removeAll(where: ({ $0 == currentUid }))
             following.removeAll(where: ({ $0 == user.id }))
-
+            
         } else {
             followers.append(currentUid)
             following.append(user.id)
+            try await NotificationService.addNotification(targetUserID: user.id, post: nil, notificationType: .follow)
         }
         
         user = user.updateFields(id: nil, username: nil, email: nil, profileImageUrl: nil, fullName: nil, bio: nil, following: nil, followers: followers)
@@ -55,12 +52,12 @@ class ProfileHeaderViewModel: ObservableObject {
         try await Firestore.firestore().collection("users").document(user.id).updateData(encodedDataTargetUser)
         try await Firestore.firestore().collection("users").document(currentUid).updateData(encodedDataCurrentUser)
     }
-
+    
     @MainActor
     func fetchFollowersUser() async throws {
         followers = try await UserService.fetchFollowersUser(user: user)
     }
-
+    
     @MainActor
     func fetchFollowingsUser() async throws {
         following = try await UserService.fetchFollowingUser(user: user)

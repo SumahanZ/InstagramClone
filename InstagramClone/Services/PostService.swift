@@ -36,4 +36,10 @@ class PostService {
         }
         return posts
     }
+
+    static func fetchPost(uid: String) async throws -> Post {
+        let snapshot = try await postsCollection.document(uid).getDocument()
+        let post = try snapshot.data(as: Post.self)
+        return post
+    }
 }

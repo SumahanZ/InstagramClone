@@ -12,7 +12,6 @@ struct ProfileHeaderView: View {
     @StateObject private var profileHeaderVM: ProfileHeaderViewModel
     
     init(user: User) {
-        print(user)
         _profileHeaderVM = StateObject(wrappedValue: ProfileHeaderViewModel(user: user))
     }
     
@@ -53,17 +52,18 @@ struct ProfileHeaderView: View {
                     Task { try? await profileHeaderVM.changeFollowersState() }
                 }
             } label: {
-                Text(profileHeaderVM.user.isCurrentUser ? "Edit Profile" : profileHeaderVM.isFollower ? "Unfollow" : "Follow")
+                Text(profileHeaderVM.user.isCurrentUser ? "Edit Profile" : profileHeaderVM.isFollower ? "Following" : "Follow")
                     .font(.subheadline)
                     .fontWeight(.semibold)
-                    .foregroundColor(profileHeaderVM.user.isCurrentUser ? .black : .white)
+                    .foregroundColor(profileHeaderVM.user.isCurrentUser ? .black : profileHeaderVM.isFollower ? .black : .white)
                     .frame(width: 360, height: 32)
-                    .background(profileHeaderVM.user.isCurrentUser ? .white : Color(.systemBlue))
+                    .background(profileHeaderVM.user.isCurrentUser ? .white : profileHeaderVM.isFollower ? .white : Color(.systemBlue))
                     .cornerRadius(6)
                     .overlay {
                         RoundedRectangle(cornerRadius: 6)
-                            .stroke(profileHeaderVM.user.isCurrentUser ? .gray : .clear, lineWidth: 1)
+                            .stroke(profileHeaderVM.user.isCurrentUser ? .gray : profileHeaderVM.isFollower ? .gray : .clear, lineWidth: 1)
                     }
+                    .animation(.easeInOut(duration: 0.2), value: profileHeaderVM.isFollower)
             }
             
             Divider()

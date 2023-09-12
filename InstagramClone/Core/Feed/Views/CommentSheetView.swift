@@ -28,7 +28,7 @@ struct CommentSheetView: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(commentVM.comments) { comment in
-                            CommentRow(comment: comment)
+                            CommentRowView(comment: comment)
                                 .environmentObject(commentVM)
                         }
                     }

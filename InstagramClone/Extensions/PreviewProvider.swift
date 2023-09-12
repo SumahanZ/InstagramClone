@@ -5,8 +5,8 @@
 //  Created by Kevin Sander Utomo on 31/08/23.
 //
 
-import Foundation
 import Firebase
+import Foundation
 import SwiftUI
 
 class DeveloperPreview {
@@ -31,6 +31,13 @@ class DeveloperPreview {
     static let MOCK_COMMENTS: [Comment] = [
         .init(id: UUID().uuidString, content: "This post is so cool!", ownerUid: UUID().uuidString, timeStamp: Timestamp(), postUid: UUID().uuidString, commentLikers: [], user: MOCK_USERS[1]),
         .init(id: UUID().uuidString, content: "Nice post man!", ownerUid: UUID().uuidString, timeStamp: Timestamp(), postUid: UUID().uuidString, commentLikers: [], user: MOCK_USERS[2])
+    ]
+
+    static let MOCK_NOTIFICATIONS: [Notification] = [
+        .init(id: UUID().uuidString, notificationTypeString: "like", timestamp: Timestamp(), ownerID: UUID().uuidString, targetID: nil, postID: UUID().uuidString, notificationType: .like, user: MOCK_USERS[0], post: MOCK_POSTS[1]),
+        .init(id: UUID().uuidString, notificationTypeString: "like", timestamp: Timestamp(), ownerID: UUID().uuidString, targetID: nil, postID: UUID().uuidString, notificationType: .like, user: MOCK_USERS[1], post: MOCK_POSTS[0]),
+        .init(id: UUID().uuidString, notificationTypeString: "comment", timestamp: Timestamp(), ownerID: UUID().uuidString, targetID: nil, postID: UUID().uuidString, notificationType: .comment, user: MOCK_USERS[1], post: MOCK_POSTS[1]),
+        .init(id: UUID().uuidString, notificationTypeString: "follow", timestamp: Timestamp(), ownerID: UUID().uuidString, targetID: MOCK_USERS[1].id, postID: UUID().uuidString, notificationType: .follow, user: MOCK_USERS[2], post: nil)
     ]
     
     static let registrationVMPreview = RegistrationViewModel()
