@@ -9,9 +9,9 @@ import SwiftUI
 import Kingfisher
 
 struct FeedCell: View {
+    @EnvironmentObject var feedVM: FeedViewModel
     @Binding var selectedPost: Post?
     @State private var detents: PresentationDetent = .medium
-    @EnvironmentObject var feedVM: FeedViewModel
     let post: Post
     let userID: String
     

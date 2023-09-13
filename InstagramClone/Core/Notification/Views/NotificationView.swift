@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NotificationView: View {
-    @StateObject private var notificationVM: NotificationViewModel = NotificationViewModel()
+    @StateObject private var notificationVM =  NotificationViewModel()
     
     var body: some View {
         NavigationStack {
@@ -16,6 +16,7 @@ struct NotificationView: View {
                 LazyVStack {
                     ForEach(notificationVM.notifications) { notification in
                         NotificationRowView(notification: notification)
+                            .environmentObject(notificationVM)
                     }
                 }
             }

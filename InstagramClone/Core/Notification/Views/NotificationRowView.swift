@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct NotificationRowView: View {
+    @EnvironmentObject var notificationVM: NotificationViewModel
     let notification: Notification
-    
+
     var body: some View {
         HStack(alignment: .center) {
             if let user = notification.user {
@@ -38,7 +39,10 @@ struct NotificationRowView: View {
             if let type = notification.notificationType {
                 switch type {
                 case .follow:
-                    FollowButton()
+                    FollowButton(notification: notification)
+                        .onTapGesture {
+                            Task { try? await notificationVM.changeFollowersState(notification: notification) }
+                        }
                 default:
                     if let post = notification.post {
                         RectangleNotificationImagePostView(post: post, size: .xSmall)
