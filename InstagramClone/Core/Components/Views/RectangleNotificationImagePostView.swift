@@ -23,6 +23,6 @@ struct RectangleNotificationImagePostView: View {
 
 struct RectangleNotificationImagePostView_Previews: PreviewProvider {
     static var previews: some View {
-        RectangleNotificationImagePostView(post: DeveloperPreview.MOCK_POSTS[0], size: .notification)
+        RectangleNotificationImagePostView(post: DeveloperPreview.MOCK_POSTS[0], size: .profile)
     }
 }

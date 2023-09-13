@@ -9,6 +9,9 @@ import SwiftUI
 import Firebase
 
 struct FollowButton: View {
+    /*
+     I'm not passing @EnvironmentObject here becasuse I want to make this view reusable in every view. If we pass @EnvironmentObject here, it is going to be only usable in one view
+     */
     let notification: Notification
     
     var isFollower: Bool {
