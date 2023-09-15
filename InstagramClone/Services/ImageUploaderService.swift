@@ -15,6 +15,7 @@ import SwiftUI
  */
 //for some reason we can't upload SwiftUI Images into FireStorage, we can only use UIImage
 struct ImageUploader {
+
     static func saveImage(image: UIImage, pathName: String) async throws -> String? {
         /*
          We need to compress the image data is because sometimes we have images that are like 4k resolution and big zie, therefore we need to compress it because we don't want to put the whole 4k resolution into the storage

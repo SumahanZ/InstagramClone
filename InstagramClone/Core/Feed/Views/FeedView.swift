@@ -10,6 +10,7 @@ import SwiftUI
 struct FeedView: View {
     @StateObject private var feedVM = FeedViewModel()
     @State private var selectedPost: Post?
+    @State private var showInboxView: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -25,6 +26,9 @@ struct FeedView: View {
             .refreshable {
                 Task { try? await feedVM.fetchPosts() }
             }
+            .sheet(isPresented: $showInboxView, content: {
+                InboxView()
+            })
             .navigationTitle("Feed")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -38,6 +42,9 @@ struct FeedView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Image(systemName: "paperplane")
                         .imageScale(.large)
+                        .onTapGesture {
+                            showInboxView.toggle()
+                        }
                 }
             }
         }

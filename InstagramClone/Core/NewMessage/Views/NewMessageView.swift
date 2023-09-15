@@ -9,42 +9,52 @@ import SwiftUI
 
 struct NewMessageView: View {
     @StateObject private var newMessageVM = NewMessageViewModel()
-    @State private var searchText = ""
-    @Binding var showNewMessageView: Bool
+    @Binding var selectedUser: User?
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 17) {
-                Text("To ")
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 17) {
+                    Text("To ")
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    TextField("Search", text: $newMessageVM.searchText)
+                    
+                    Text("Users")
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding(15)
                 
-                TextField("Search", text: $searchText)
-                
-                Text("Users")
-                    .fontWeight(.bold)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .padding(15)
-            
-            LazyVStack {
                 ForEach(newMessageVM.availableUsers) { user in
-                    UserRow(user: user)
-                    Divider()
-                        .padding(.leading, 40)
+                    VStack {
+                        UserRow(user: user)
+                        Divider()
+                            .padding(.leading, 40)
+                    }
+                    .onTapGesture {
+                        selectedUser = user
+                        dismiss.callAsFunction()
+                    }
                 }
+                
+                
             }
-            
-        }
-        .navigationTitle("New Message")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Cancel") {
-                    dismiss.callAsFunction()
+            .onChange(of: newMessageVM.searchText, perform: { _ in
+                newMessageVM.filterUsers()
+            })
+            .navigationTitle("New Message")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        dismiss.callAsFunction()
+                        selectedUser = nil
+                    }
+                    .tint(.black)
                 }
-                .tint(.black)
             }
         }
     }
@@ -53,7 +63,7 @@ struct NewMessageView: View {
 struct NewMessageView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            NewMessageView(showNewMessageView: .constant(true))
+            NewMessageView(selectedUser: .constant(DeveloperPreview.MOCK_USERS[0]))
         }
     }
 }
